@@ -42,7 +42,7 @@ int main() {
 
 	WSADATA wsaData;
 
-	//ініціалізуємо winsock
+	//initialization winsock
 	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
 	if (iResult != 0)
 	{
@@ -54,7 +54,7 @@ int main() {
 		cout << "Initialization : success" << endl;
 	}
 
-	//створюємо сервер
+	//creating server
 	struct addrinfo *result = NULL, *ptr = NULL, hints;
 
 	ZeroMemory(&hints, sizeof(hints));
@@ -64,7 +64,7 @@ int main() {
 	hints.ai_flags = AI_PASSIVE;
 
 	//https://msdn.microsoft.com/ru-ru/library/windows/desktop/bb530742(v=vs.85).aspx
-	//створення сокету сервера
+	//creating server socket
 
 	iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
 	if (iResult != 0)
@@ -93,7 +93,7 @@ int main() {
 		cout << "Creation socket : sucess" << endl;
 	}
 
-	//налаштування сокета
+	//setting socket
 	ClientSocket = INVALID_SOCKET;
 
 	iResult = bind(ListenSocket,
@@ -114,7 +114,7 @@ int main() {
 
 	freeaddrinfo(result);
 
-	//прослуховуввання з сокету
+	//listenin socket
 	if (listen(ListenSocket, SOMAXCONN) == SOCKET_ERROR)
 	{
 		printf("listen failed with error: %ld\n", WSAGetLastError());
@@ -129,7 +129,7 @@ int main() {
 
 	cout << "Server started!" << endl;
 
-	//Підтвердження підключення клієнту
+	//Confirming client connectivity
 	char m_connect[] = "Connect...;;;5";
 	for (;;Sleep(75)) {
 		if (ClientSocket = accept(ListenSocket, NULL, NULL));
