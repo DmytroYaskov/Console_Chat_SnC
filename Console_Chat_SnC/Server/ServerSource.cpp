@@ -38,20 +38,19 @@ void SendMessageToClient(int ID) {
 
 int main() {
 
+	//initialization winsock
+
 	int iResult;
 
 	WSADATA wsaData;
-
-	//initialization winsock
+	
 	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-	if (iResult != 0)
-	{
+	if (iResult != 0) {
 		printf("WSAStartup failed: %d\n", iResult);
 		return 1;
 	}
-	else
-	{
-		cout << "Initialization : success" << endl;
+	else {
+		cout << "WSAStartup initialization : success" << endl;
 	}
 
 	//creating server
@@ -67,13 +66,11 @@ int main() {
 	//creating server socket
 
 	iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
-	if (iResult != 0)
-	{
+	if (iResult != 0) {
 		printf("getaddrinfo failed: %d\n", iResult);
 		WSACleanup();
 	}
-	else
-	{
+	else {
 		cout << "Getaddrinfo socket : success" << endl;
 	}
 
@@ -81,15 +78,13 @@ int main() {
 	ListenSocket = socket(result->ai_family,
 		result->ai_socktype,
 		result->ai_protocol);
-	if (ListenSocket == INVALID_SOCKET)
-	{
+	if (ListenSocket == INVALID_SOCKET) {
 		printf("Error at socket(); %ld\n", WSAGetLastError());
 		freeaddrinfo(result);
 		WSACleanup();
 		return 1;
 	}
-	else
-	{
+	else {
 		cout << "Creation socket : sucess" << endl;
 	}
 
@@ -99,31 +94,27 @@ int main() {
 	iResult = bind(ListenSocket,
 		result->ai_addr,
 		(int)result->ai_addrlen);
-	if (iResult == SOCKET_ERROR)
-	{
+	if (iResult == SOCKET_ERROR) {
 		printf("bind failed with error: %d\n", WSAGetLastError());
 		freeaddrinfo(result);
 		closesocket(ListenSocket);
 		WSACleanup();
 		return 1;
 	}
-	else
-	{
+	else {
 		cout << "Bind socket : sucñess" << endl;
 	}
 
 	freeaddrinfo(result);
 
 	//listenin socket
-	if (listen(ListenSocket, SOMAXCONN) == SOCKET_ERROR)
-	{
+	if (listen(ListenSocket, SOMAXCONN) == SOCKET_ERROR) {
 		printf("listen failed with error: %ld\n", WSAGetLastError());
 		closesocket(ListenSocket);
 		WSACleanup();
 		return 1;
 	}
-	else
-	{
+	else {
 		cout << "Listening : sucñess" << endl;
 	}
 
@@ -132,8 +123,7 @@ int main() {
 	//Confirming client connectivity
 	char m_connect[] = "Connect...;;;5";
 	for (;;Sleep(75)) {
-		if (ClientSocket = accept(ListenSocket, NULL, NULL));
-		{
+		if (ClientSocket = accept(ListenSocket, NULL, NULL)); {
 			printf("Client conection");
 			Connections[ClientCount] = ClientCount;
 			send(Connections[ClientCount], m_connect, strlen(m_connect), NULL);
@@ -141,8 +131,7 @@ int main() {
 			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)SendMessageToClient, (LPVOID)(ClientCount - 1), NULL, NULL);
 		}
 	}
-	if (ClientSocket == INVALID_SOCKET)
-	{
+	if (ClientSocket == INVALID_SOCKET) {
 		printf("accept failed: %d\n", WSAGetLastError());
 		closesocket(ListenSocket);
 		WSACleanup();
