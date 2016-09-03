@@ -64,4 +64,22 @@ int main(int argc, char **argv) {
 		WSACleanup;
 		return 1;
 	}
+	else {
+		printf("Socket ", INVALID_SOCKET," success");
+	}
+
+	//connect to server
+	iResult = connect(ConnectSocket, ptr->ai_addr, (int)ptr->ai_addrlen);
+	if (iResult == SOCKET_ERROR) {
+		closesocket(ConnectSocket);
+		ConnectSocket = INVALID_SOCKET;
+	}
+
+	freeaddrinfo(result);
+
+	if (ConnectSocket == INVALID_SOCKET) {
+		printf("Unable to connect to server !\n");
+		WSACleanup();
+		return 1;
+	}
 }

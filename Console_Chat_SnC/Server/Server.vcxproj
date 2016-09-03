@@ -112,6 +112,9 @@
   <ItemGroup>
     <ClCompile Include="ServerSource.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="message.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
