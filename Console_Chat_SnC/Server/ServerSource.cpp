@@ -5,11 +5,14 @@
 #define DEFAULT_PORT "27015"
 #define DEFAULT_BUFLEN 4096
 
+
 #include <Winsock2.h>
 #include <Windows.h>
 #include <Stdio.h>
 #include <iostream>
 #include <ws2tcpip.h>
+
+
 
 #pragma comment(lib, "Ws2_32.lib")
 
@@ -37,6 +40,7 @@ void SendMessageToClient(int ID) {
 }
 
 int main() {
+
 
 	//initialization winsock
 
@@ -123,7 +127,7 @@ int main() {
 	//Confirming client connectivity
 	char m_connect[] = "Connect...;;;5";
 	for (;;Sleep(75)) {
-		if (ClientSocket = accept(ListenSocket, NULL, NULL)); {
+		if (ClientSocket = accept(ListenSocket, NULL, NULL)) {
 			printf("Client conection");
 			Connections[ClientCount] = ClientCount;
 			send(Connections[ClientCount], m_connect, strlen(m_connect), NULL);
